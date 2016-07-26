@@ -1,0 +1,8 @@
+DBCC DROPCLEANBUFFERS;
+
+GO
+
+SELECT TOP 200 CarrierTrackingNumber
+FROM [AdventureWorks2012].[Sales].[SalesOrderDetail]
+WHERE CarrierTrackingNumber IS NOT NULL
+ORDER BY CarrierTrackingNumber;

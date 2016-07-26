@@ -1,0 +1,22 @@
+DBCC DROPCLEANBUFFERS
+
+SET STATISTICS IO ON
+
+SELECT SUM(UnitPrice), AVG(UnitPrice), SUM(OrderQty), AVG(OrderQty)
+FROM  [Sales].[SalesOrderDetail]
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+CREATE NONCLUSTERED INDEX [TestIndex]
+ON [Sales].[SalesOrderDetail]
+(UnitPrice, OrderQty)
+
+
+
+-------------------------------------------------
+---------------------------------------------------
+
+DELETE 
+FROM sales.SalesOrderDetail
+WHERE SalesOrderID = 1

@@ -1,0 +1,36 @@
+ALTER DATABASE AdventureWorks2012
+SET RECOVERY FULL;
+
+GO
+
+BACKUP DATABASE AdventureWorks2012
+TO DISK = 'C:\Backup\AdventureWorks2012.bak' 
+WITH FORMAT;
+
+GO
+
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+ALTER DATABASE AdventureWorks2012 SET OFFLINE WITH ROLLBACK IMMEDIATE;
+DROP DATABASE AdventureWorks2012;
+
+GO
+---------------------------------------------------------------
+---------------------------------------------------------------
+
+RESTORE DATABASE AdventureWorks2012
+FILEGROUP='PRIMARY' 
+FROM DISK =  'C:\Backup\AdventureWorks2012.bak'
+WITH PARTIAL, RECOVERY, REPLACE; 
+
+Go
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+RESTORE DATABASE AdventureWorks2012
+FILEGROUP='LowPriority' 
+FROM DISK =  'C:\Backup\AdventureWorks2012.bak'
+WITH  RECOVERY;
+
+ 

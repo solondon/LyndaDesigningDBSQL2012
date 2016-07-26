@@ -1,0 +1,13 @@
+CREATE FUNCTION myClassifier()
+RETURNS SYSNAME
+WITH SCHEMABINDING
+AS
+BEGIN
+	IF DB_NAME() = 'AdventureWorks'
+	RETURN 'AdventureWorksPool'
+
+	IF USER_NAME() = 'Administrator'
+	RETURN 'Default'
+
+	RETURN 'Default'
+END

@@ -1,0 +1,28 @@
+ALTER DATABASE AdventureWorks2012
+ADD FILEGROUP FileStreamGroup CONTAINS FILESTREAM;
+
+ALTER DATABASE AdventureWorks2012
+ADD FILE (NAME='FileStreamData', FILENAME='F:\SharedData')
+TO FILEGROUP FileStreamGroup 
+
+-----------------------------------------
+-----------------------------------------
+
+USE AdventureWorks2012
+
+CREATE TABLE dbo.Document
+(
+	[DocumentID] UNIQUEIDENTIFIER ROWGUIDCOL UNIQUE NOT NULL DEFAULT NEWSEQUENTIALID(), 
+	[DocumentNumber] INTEGER,
+	[DocumentBody] VARBINARY(MAX) FILESTREAM NULL
+)
+
+
+INSERT INTO dbo.Document(DocumentNumber, DocumentBody)
+VALUES (1, CONVERT(VARBINARY(MAX), 'Hello World'))
+
+--------------------------------
+---------------------------------
+
+SELECT DocumentID, DocumentNumber, CONVERT(VARCHAR(MAX), DocumentBody)
+FROM dbo.Document

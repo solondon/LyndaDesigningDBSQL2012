@@ -1,0 +1,11 @@
+USE AdventureWorks2012
+
+GO
+
+CREATE PROCEDURE getAllProducts 
+AS
+BEGIN
+	SELECT * FROM Production.Product
+
+	RETURN 1
+END

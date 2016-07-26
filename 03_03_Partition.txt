@@ -1,0 +1,29 @@
+USE AdventureWorks2012
+
+CREATE PARTITION FUNCTION PartFunctHistorical (datetime)
+AS RANGE RIGHT FOR VALUES ('20120101')
+
+GO
+----------------------------------------------
+---------------------------------------------------- 
+
+
+USE AdventureWorks2012
+
+CREATE PARTITION SCHEME PartSchemeHistorical 
+AS PARTITION PartFunctHistorical 
+TO (LowPriority, [PRIMARY]) 
+
+GO
+
+-------------------------------------
+-------------------------------------
+
+USE AdventureWorks2012
+
+ALTER TABLE   [Sales].[SalesOrderHeaderSalesReason]
+DROP CONSTRAINT  PK_SalesOrderHeaderSalesReason_SalesOrderID_SalesReasonID
+WITH(MOVE TO PartSchemeHistorical(ModifiedDate));
+
+
+GO
